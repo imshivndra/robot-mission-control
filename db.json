@@ -1,0 +1,29 @@
+{
+  "robots": [
+    {
+      "id": 1,
+      "name": "opportunity"
+    },
+    {
+      "id": 2,
+      "name": "perseverance"
+    }
+  ],
+  "locations": [
+    {
+      "id": 1,
+      "name": "kitchen"
+    },
+    {
+      "id": 1,
+      "name": "ground"
+    }
+  ],
+  "actions": [
+    {
+      "id": 1,
+      "name": "cook"
+    },
+    { "id": 1, "name": "play" }
+  ]
+}
