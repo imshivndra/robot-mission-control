@@ -8,7 +8,6 @@ import { ThemeProvider } from "@material-ui/core/styles";
 
 import createRootReducer from "./reducers";
 import theme from "./theme";
-import "./style.css";
 import App from "./App";
 import rootSaga from "./sagas/index";
 

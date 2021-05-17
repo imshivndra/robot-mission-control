@@ -1,6 +1,7 @@
 // ACTION TYPES
 export const SAGA_GET_MISSION_META_DATA = "missions/SAGA_GET_MISSION_META_DATA";
 export const SAGA_POST_MISSION = "missions/SAGA_POST_MISSION";
+export const SAGA_PATCH_MISSION = "missions/SAGA_PATCH_MISSION";
 export const SAGA_GET_MISSIONS = "missions/SAGA_GET_MISSIONS";
 
 // ACTION CREATORS
@@ -14,9 +15,15 @@ export const postMission = (data) => ({
   data,
 });
 
+export const patchMission = (data) => ({
+  type: SAGA_PATCH_MISSION ,
+  data,
+});
+
 export const getMissions = (data) => ({
   type: SAGA_GET_MISSIONS ,
   data,
 });
+
 
 

@@ -8,7 +8,7 @@ import {
   setOpenForm,
   setMissions,
 } from "../missionsSlice";
-import { getMissionMetaData, postMission, getMissions } from "../api";
+import { getMissionMetaData, postMission, getMissions, patchMission } from "../api";
 
 export function* getMissionMetaDataSaga(params) {
   try {
@@ -37,6 +37,20 @@ export function* postMissionSaga(params) {
     console.log("An error occured in Post Mission saga");
   }
 }
+export function* patchMissionSaga(params) {
+  const {
+    data: { values, setSubmitting,id },
+  } = params;
+
+  try {
+    console.log("Patch mission saga", params);
+    setSubmitting(true);
+    yield call(patchMission, values,id);
+    yield put(setOpenForm(false));
+  } catch (e) {
+    console.log("An error occured in Patch Mission saga");
+  }
+}
 
 export function* getMissionsSaga(params) {
   try {
@@ -47,16 +61,3 @@ export function* getMissionsSaga(params) {
     console.log("An error occured in Post Mission saga");
   }
 }
-
-// export function* getMissionSaga(params) {
-//   try {
-//     console.log("get robot saga")
-//     const { data } = params;
-//     yield put(setRobotsLoading(true))
-//     const { data: result } = yield call(getRobots, data);
-//     yield put(setRobots(result));
-//     yield put(setRobotsLoading(false))
-//   } catch (e) {
-//     console.log("An error occured in Robots saga");
-//   }
-// }

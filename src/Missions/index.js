@@ -2,17 +2,14 @@ import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
+import IconButton from "@material-ui/core/IconButton";
 
 import { selectOpenForm, setOpenForm } from "./missionsSlice";
 import MissionScheduler from "./form";
-import { getMissions } from "./actions";
+import MissionsList from "./MissionsList";
 
 function MissionControl() {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getMissions());
-  }, [dispatch]);
 
   const openForm = useSelector(selectOpenForm);
 
@@ -20,7 +17,7 @@ function MissionControl() {
     dispatch(setOpenForm(true));
   };
   return (
-    <div>
+    <div style={{ margin: "2rem" }}>
       <div
         style={{
           display: "flex",
@@ -29,7 +26,12 @@ function MissionControl() {
         }}
       >
         <p>Mission Queue</p>
-        <AddIcon onClick={handleClick} />
+        <IconButton color="primary" onClick={handleClick}>
+          <AddIcon />
+        </IconButton>
+      </div>
+      <div>
+        <MissionsList />
       </div>
       {openForm ? <MissionScheduler /> : null}
     </div>

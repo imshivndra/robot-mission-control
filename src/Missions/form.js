@@ -21,9 +21,10 @@ import {
   setOpenForm,
   selectMissionMetaData,
   selectMissionMetaDataLoading,
+  selectEditMission,
+  selectMissions,
 } from "./missionsSlice";
-import { getMissionMetaData, postMission } from "./actions";
-
+import { getMissionMetaData, postMission, patchMission } from "./actions";
 
 const useStyles = makeStyles((theme) => ({
   drawerPaper: {
@@ -63,13 +64,18 @@ function MissionScheduler(props) {
 
   const missionMetaData = useSelector(selectMissionMetaData);
   const missionMetaDataLoading = useSelector(selectMissionMetaDataLoading);
+  const editMission = useSelector(selectEditMission);
+  const missions = useSelector(selectMissions);
 
-  // const [robots, setRobots] = useState([]);
-  // const [locations, setLocations] = useState([]);
-  // const [actions, setActions] = useState([]);
+  const [missionDetails, setMissionDetails] = useState({});
 
   useEffect(() => {
     dispatch(getMissionMetaData());
+    if (editMission.open) {
+      const singleMission = missions.find((m) => m.id === editMission.id);
+      console.log("Update ", singleMission);
+      setMissionDetails(singleMission);
+    }
   }, [dispatch]);
 
   const handleClose = () => {
@@ -87,28 +93,44 @@ function MissionScheduler(props) {
     >
       <Box className={c.header}>
         <Box className={c.title}>Mission Scheduler</Box>
-        <IconButton onClick={handleClose} aria-label="close drawer">
+        <IconButton
+          onClick={handleClose}
+          aria-label="close drawer"
+          color="primary"
+        >
           <CancelIcon />
         </IconButton>
       </Box>
       <Box className={c.body}>
         <Formik
           initialValues={{
-            name: "",
-            tasks: [{ location: "", action: "" }],
-            date_time: "",
-            robot: "",
+            name: editMission.open ? missionDetails.name : "",
+            tasks: editMission.open
+              ? missionDetails.tasks
+              : [{ location: "", action: "" }],
+            date_time: editMission.open ? missionDetails.date_time : "",
+            robot: editMission.open ? missionDetails.robot : "",
           }}
           validate={(values) => {
             const errors = {};
             if (values.name.length < 1) {
               set(errors, "name", "required");
             }
+            if (values.robot.length < 1) {
+              set(errors, "robot", "required");
+            }
+            if (values.date_time.length < 1) {
+              set(errors, "date_time", "required");
+            }
             console.log("error", errors);
             return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
-           dispatch(postMission({values,setSubmitting}))
+            if (editMission.open) {
+              dispatch(patchMission({ values, setSubmitting,id:missionDetails.id }));
+            } else {
+              dispatch(postMission({ values, setSubmitting }));
+            }
           }}
         >
           {({ submitForm, isSubmitting, values }) => {
@@ -259,7 +281,7 @@ function MissionScheduler(props) {
                   onClick={submitForm}
                   size="large"
                 >
-                  Submit
+                  {editMission.open ? "Update" : "Submit"}
                 </Button>
               </Form>
             );
