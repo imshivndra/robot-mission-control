@@ -8,6 +8,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 
 import createRootReducer from "./reducers";
 import theme from "./theme";
+import "./style.css";
 import App from "./App";
 import rootSaga from "./sagas/index";
 
@@ -20,12 +21,10 @@ const store = createStore(
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </Provider>,
   document.getElementById("root")
 );

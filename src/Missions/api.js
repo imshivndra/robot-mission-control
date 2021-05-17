@@ -1,6 +1,10 @@
 import axios from "axios";
 
-export const getRobots = () => axios.get("http://localhost:3002/robots");
+export const getMissionMetaData = () => axios.get("http://localhost:3002/mission_meta_data");
+
+export const postMission= (params) => {
+    console.log("params post mission",params);
+    return (axios.post("http://localhost:3002/missions",params))};
 
 export const getMissions = () => axios.get("http://localhost:3002/missions");
 

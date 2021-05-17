@@ -7,33 +7,33 @@ export const missionsSlice = createSlice({
     missions: [],
     mission: {},
     openForm: false,
-    robots:[],
-    robotOptionsLoading:true
+    missionMetaData:{},
+    missionMetaDataLoading:true
   },
   reducers: {
-    setMission: (state, action) => {
-      state.mission = action.payload;
+    setMissions: (state, action) => {
+      state.missions = action.payload;
     },
     setOpenForm: (state, action) => {
       state.openForm = action.payload;
     },
-    setRobots:(state,action)=>{
-      state.robots=action.payload
+    setMissionMetaData:(state,action)=>{
+      state.missionMetaData=action.payload
     },
-    setRobotsLoading: (state, action) => {
-      state.robotsLoading = !!action.payload;
+    setMissionMetaDataLoading: (state, action) => {
+      state.missionMetaDataLoading = action.payload;
     }
   },
 });
 
-export const { setMission, setRobots, setRobotsLoading } = missionsSlice.actions;
-export const { setOpenForm } = missionsSlice.actions;
+export const { setMission, setMissionMetaData, setMissionMetaDataLoading, setOpenForm, setMissions } = missionsSlice.actions;
+
 
 export const selectMissions = (state) => get(state, "missions");
 export const selectOpenForm = (state) => get(state, "missions.openForm");
-export const selectRobots = (state) => get(state, "missions.robots");
-export const selectRobotsLoading = (state) =>
-  get(state, "missions.robotsLoading");
+export const selectMissionMetaData = (state) => get(state, "missions.missionMetaData");
+export const selectMissionMetaDataLoading = (state) =>
+  get(state, "missions.missionMetaDataLoading");
 
 
 export default missionsSlice.reducer;

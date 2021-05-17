@@ -3,8 +3,7 @@ import MissionControl from "./Missions/index";
 function App() {
   return (
     <div>
-        <MissionControl />
-       
+      <MissionControl />
     </div>
   );
 }
