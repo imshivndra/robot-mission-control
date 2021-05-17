@@ -1,9 +1,9 @@
+import MissionControl from "./Missions/index";
+
 function App() {
   return (
     <div>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+        <MissionControl />
        
     </div>
   );
